@@ -9,7 +9,7 @@ export const addUrl = (url, page) => {
     }
 }
 
-const searchReducer = (state = {}, action) => {
+const searchReducer = (state = {url:'blind', page: 1}, action) => {
     switch (action.type) {
         case 'NEW_URL':
             return action.data

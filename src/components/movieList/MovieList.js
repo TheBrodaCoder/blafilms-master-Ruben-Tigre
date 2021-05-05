@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { ReactComponent as ChevronLeft } from '../../chevron-left.svg'
 import { ReactComponent as ChevronRight } from '../../chevron-right.svg'
 import MovieItem from '../movieItem/MovieItem'
@@ -14,6 +14,17 @@ const MovieList = (props) => {
     const dispatch = useDispatch()
     const searchResult = useSelector(state => state.movies) || []
     const urlObject = useSelector(state => state.search)
+
+    useEffect(() => {
+        const search = async () => {
+            const response = await movieService.handleSearch(urlObject.url, urlObject.page)
+            const searchedAsAction = addSearched(response.Search)
+            dispatch(searchedAsAction)
+        }
+
+        search()
+        // eslint-disable-next-line
+    }, []);
 
     const managePage = (page, change) => { 
         let result = page + change
